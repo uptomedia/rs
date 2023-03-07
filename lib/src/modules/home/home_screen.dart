@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final AdSize adSize = const AdSize(width: 300, height: 50);
   final BannerAd myBanner = BannerAd(
-    adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+    adUnitId: 'ca-app-pub-5236252671718127/7840069173',
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),

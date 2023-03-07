@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:get/get.dart';
@@ -24,6 +26,9 @@ class TimerController extends GetxController
       await player.setAsset(// Load a URL
           'assets/imgs/tone.mp3');
       player.play();
+      Timer.periodic(Duration(seconds: 4), (timer) {
+        player.stop();
+      });
 
       // FlutterRingtonePlayer.playNotification(asAlarm: true);
     }

@@ -121,6 +121,10 @@ class AuthController extends GetxController {
   }
 
   Future<User> getUser() async {
+    if (token == null) {
+      Get.to(LoginScreen());
+      return User.empty();
+    }
     User response = await service.getUser(token!);
     print(response.toString());
     return response;

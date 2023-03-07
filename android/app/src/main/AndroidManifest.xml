@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rs">
+    package="com.up2media.rs">
    <application
-        android:label="rs"
+        android:label="Programming With RS"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
@@ -32,7 +32,7 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8143518365371299~4332592091"/>
+            android:value="ca-app-pub-5236252671718127~1985640092"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

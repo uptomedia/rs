@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rs/src/global/controllers/app.dart';
 import 'package:rs/src/global/utils/padding.dart';
 import 'package:rs/src/global/widgets/app_bar.dart';
@@ -14,6 +15,19 @@ import '../../global/utils/colors.dart';
 class SettingScreen extends StatelessWidget {
   SettingScreen({super.key});
   final AppController appController = Get.find<AppController>();
+  final AdSize adSize = const AdSize(width: 300, height: 50);
+  final BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-5236252671718127/7923011414',
+    size: AdSize.banner,
+    request: const AdRequest(),
+    listener: const BannerAdListener(),
+  );
+
+  Future<void> loadbanner() async {
+    await myBanner.load();
+
+    return;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +150,23 @@ class SettingScreen extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 20,
+                      ),
+                      FutureBuilder(
+                        future: loadbanner(),
+                        builder: (context, snapshot) {
+                          final AdWidget adWidget = AdWidget(ad: myBanner);
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: adWidget,
+                              width: myBanner.size.width.toDouble(),
+                              height: myBanner.size.height.toDouble(),
+                            ),
+                          );
+
+                          // return Container();
+                        },
                       ),
                     ],
                   ),

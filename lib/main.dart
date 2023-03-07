@@ -17,6 +17,7 @@ Future<void> secureScreen() async {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   secureScreen();
   await Hive.initFlutter();
   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
@@ -26,6 +27,7 @@ void main() async {
   TimerBinding().dependencies();
   MobileAds.instance.initialize();
   Hive.registerAdapter(CourseAdapter());
+
   runApp(const MyApp());
 }
 
