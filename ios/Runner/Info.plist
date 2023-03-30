@@ -8,6 +8,8 @@
 	<string>YES</string> -->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string></string>
 	<key>CFBundleDisplayName</key>
 	<string>Programming with RS</string>
 	<key>CFBundleExecutable</key>
