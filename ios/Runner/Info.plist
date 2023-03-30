@@ -3,35 +3,35 @@
 <plist version="1.0">
 <dict>
 	<key>UIFileSharingEnabled</key>
-	<string>YES</string>
+	<string /> 
 	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<string>YES</string>
+	<string /> 
 	<key>CFBundleDevelopmentRegion</key>
-	<string>AR</string>
+	<string /> 
 	<key>CFBundleDisplayName</key>
-	<string>Programming with RS</string>
+	<string /> 
 	<key>CFBundleExecutable</key>
-	<string>programming with RS</string>
+	<string /> 
 	<key>CFBundleIdentifier</key>
-	<string>com.up2media.rs</string>
+	<string /> 
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
+	<string /> 
 	<key>CFBundleName</key>
-	<string>Programming with RS</string>
+	<string /> 
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+	<string /> 
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string /> 
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string /> 
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string /> 
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string /> 
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string /> 
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
