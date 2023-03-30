@@ -108,8 +108,12 @@ class AuthController extends GetxController {
     Get.back();
     // print(response.message);
     if (response.message != null) {
-      if (response.status == 200) Get.offAll(LoginScreen());
-      Get.snackbar("Error", response.message!);
+      if (response.status == 200) {
+        Get.snackbar("Success",
+            "Confirmation emaile sent to ${req.email} please confirm then login");
+        Get.offAll(LoginScreen());
+      }
+      Get.snackbar("", response.message!);
     } else {
       user = response.user;
       token = response.token;
@@ -118,6 +122,16 @@ class AuthController extends GetxController {
       update();
       // Get.to(HomeScreen());
     }
+  }
+
+  Future<void> logOut() async {
+    user = User.empty();
+    token = null;
+    tokenBox!.clear();
+    print(token);
+    update();
+    Get.to(HomeScreen());
+    return;
   }
 
   Future<User> getUser() async {

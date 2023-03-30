@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rs/src/global/controllers/app.dart';
+import 'package:rs/src/global/controllers/auth.dart';
 import 'package:rs/src/global/utils/padding.dart';
 import 'package:rs/src/global/widgets/app_bar.dart';
 import 'package:rs/src/global/widgets/background.dart';
@@ -14,7 +15,9 @@ import '../../global/utils/colors.dart';
 
 class SettingScreen extends StatelessWidget {
   SettingScreen({super.key});
+
   final AppController appController = Get.find<AppController>();
+  final AuthController authController = Get.find<AuthController>();
   final AdSize adSize = const AdSize(width: 300, height: 50);
   final BannerAd myBanner = BannerAd(
     adUnitId: 'ca-app-pub-5236252671718127/7923011414',
@@ -150,6 +153,33 @@ class SettingScreen extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          authController.logOut();
+                        },
+                        child: Container(
+                          height: 85,
+                          width: 322,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              color: AppColors.textFormFill),
+                          child: Padding(
+                            padding: AppPading.defaultPadding,
+                            child: Row(
+                              children: [
+                                Icon(Icons.logout),
+                                const SizedBox(
+                                  width: 25,
+                                ),
+                                Text(
+                                  "logOut".tr,
+                                  style: Get.theme.textTheme.bodyText2,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                       FutureBuilder(
                         future: loadbanner(),

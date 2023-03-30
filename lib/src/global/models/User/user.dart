@@ -20,7 +20,7 @@ class User {
       id: data["id"],
       name: data["name"],
       // roleId: data["role_id"],
-      phone: data["phone"],
+      phone: data["phone"].toString(),
       email: data["email"],
       birthday: data["birthday"].toString(),
     );

@@ -55,7 +55,11 @@ class CourseDetails {
     return CourseDetails(
         id: json['id'],
         count: json['enrollCount'] ?? 0,
-        duration: int.parse(json['duration'].toString()),
+        duration: (json['duration'] != null &&
+                json['duration'] != 'null' &&
+                json['duration'] != '')
+            ? int.parse(json['duration'])
+            : 0,
         title: json['title']['en'].toString(),
         description: json['meta_description'].toString(),
         image: json['thumbnail'],

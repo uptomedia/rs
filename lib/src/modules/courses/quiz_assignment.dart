@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:rs/src/global/controllers/quiz.dart';
+import 'package:rs/src/global/models/courses/ans.dart';
 import 'package:rs/src/global/models/courses/submit_ans.dart';
 import 'package:rs/src/global/utils/colors.dart';
 import 'package:rs/src/global/utils/padding.dart';
@@ -96,7 +97,7 @@ class QuizAssignmentScreen extends GetView<QuizController> {
                                         children: [
                                           Expanded(child: Text(e.title)),
                                           Checkbox(
-                                            value: e.selected,
+                                            value: e.id == controller.answer.id,
                                             materialTapTargetSize:
                                                 MaterialTapTargetSize.padded,
                                             fillColor:
@@ -105,9 +106,12 @@ class QuizAssignmentScreen extends GetView<QuizController> {
                                             onChanged: (val) {
                                               e.selected = val!;
                                               if (val) {
-                                                controller.answers.add(e.id);
+                                                controller.answer = e;
                                               } else {
-                                                controller.answers.remove(e.id);
+                                                controller.answer = Answer(
+                                                    id: -1,
+                                                    status: 1,
+                                                    title: "title");
                                               }
                                               controller.update();
                                             },
@@ -143,7 +147,7 @@ class QuizAssignmentScreen extends GetView<QuizController> {
                                             .id,
                                         quiz_test_id:
                                             controller.currentQuizTest!.id,
-                                        ans: controller.answers));
+                                        ans: [controller.answer.id]));
                                   },
                                   child: Text(
                                     "next".tr,

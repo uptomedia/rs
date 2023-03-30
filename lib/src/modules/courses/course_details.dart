@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:rs/src/global/controllers/courses.dart';
 import 'package:rs/src/global/models/courses/course.dart';
 import 'package:rs/src/global/models/courses/course_details_response.dart';
+import 'package:rs/src/global/models/courses/courses_responce.dart';
 import 'package:rs/src/global/utils/colors.dart';
 import 'package:rs/src/global/utils/padding.dart';
 import 'package:rs/src/global/widgets/app_bar.dart';
@@ -12,6 +13,8 @@ import 'package:rs/src/modules/courses/enrolled_course.dart';
 import 'package:rs/src/modules/login/login_view.dart';
 
 import '../../global/utils/config.dart';
+
+final TextEditingController cupon = TextEditingController();
 
 class CourseDetailsScreen extends GetView<CourseController> {
   final Course course;
@@ -184,20 +187,33 @@ class CourseDetailsScreen extends GetView<CourseController> {
                                     ),
                                     Center(
                                       child: GestureDetector(
-                                        onTap: () {
+                                        onTap: () async {
                                           if (controller.auth.token == null) {
                                             Get.to(LoginScreen());
                                           } else {
-                                            Get.to(EnrolledCourseScreen(
-                                                course: data.data!));
-                                            // Get.dialog(BuyDialog(
-                                            //   onBuy: () {
-                                            //     // controller
-                                            //     //     .buyCourse(data.data!.id);
-                                            //     Get.to(EnrolledCourseScreen(
-                                            //         course: data.data!));
-                                            //   },
-                                            // ));
+                                            // Get.to(EnrolledCourseScreen(
+                                            //     course: data.data!));
+                                            CoursesResponce enroll =
+                                                await controller
+                                                    .checkEnroll(data.data!.id);
+                                            if (!enroll.success) {
+                                              Get.dialog(BuyDialog(
+                                                onBuy: () async {
+                                                  CoursesResponce c =
+                                                      await controller
+                                                          .buyCourse(
+                                                              data.data!.id,
+                                                              cupon.text);
+                                                  if (c.success) {
+                                                    Get.to(EnrolledCourseScreen(
+                                                        course: data.data!));
+                                                  }
+                                                },
+                                              ));
+                                            } else {
+                                              Get.to(EnrolledCourseScreen(
+                                                  course: data.data!));
+                                            }
                                           }
                                         },
                                         child: Container(
@@ -251,7 +267,7 @@ class CourseDetailsScreen extends GetView<CourseController> {
 class BuyDialog extends StatelessWidget {
   BuyDialog({Key? key, required this.onBuy}) : super(key: key);
   VoidCallback onBuy;
-  final TextEditingController cupon = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(

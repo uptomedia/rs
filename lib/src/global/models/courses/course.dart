@@ -29,10 +29,15 @@ class Course extends HiveObject {
       required this.price,
       this.discount_price});
   factory Course.fromJson(Map<String, dynamic> json) {
+    print(json['duration']);
     return Course(
         id: json['id'],
         count: json['enrollCount'],
-        duration: int.parse(json['duration']),
+        duration: (json['duration'] != null &&
+                json['duration'] != 'null' &&
+                json['duration'] != '')
+            ? int.parse(json['duration'])
+            : 0,
         title: json['title']['en'],
         image: json['thumbnail'],
         subscription: int.parse(json['subscription']),

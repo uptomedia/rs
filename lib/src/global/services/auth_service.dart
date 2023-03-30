@@ -44,7 +44,7 @@ class AuthService {
   Future<LoginResponse> register(SignUpRequest req) async {
     try {
       var data = await httpCall.post(
-        ApiendPoints.signup(req.email, req.name, req.password),
+        ApiendPoints.signup(req.name, req.email, req.password),
       );
       print(data.statusCode);
       if (data.statusCode == 200) {
@@ -53,7 +53,8 @@ class AuthService {
         // if (data.data["success"] as bool) {
         //   return LoginResponse.empty(data.data["message"], status: 200);
         // }
-        return LoginResponse.empty(data.data["message"], status: 200);
+        return LoginResponse.empty(data.data["message"].toString(),
+            status: 200);
       }
       return LoginResponse.empty(data.statusMessage ?? "");
     } on DioError catch (e) {

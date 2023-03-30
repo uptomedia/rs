@@ -14,15 +14,17 @@ class RegisterController extends GetxController {
   TextEditingController birthday = TextEditingController();
 
   void sendLoginReq() async {
-    SignUpRequest req = SignUpRequest(
-        email: email.text,
-        password: password.text,
-        name: name.text,
-        password_confirmation: password.text,
-        phone: phone.text,
-        birthday: birthday.text);
+    if (GetUtils.isEmail(email.text) && password.text.length >= 8) {
+      SignUpRequest req = SignUpRequest(
+          email: email.text,
+          password: password.text,
+          name: name.text,
+          password_confirmation: password.text,
+          phone: phone.text,
+          birthday: birthday.text);
 
-    await auth.register(req);
+      await auth.register(req);
+    }
   }
 
   @override

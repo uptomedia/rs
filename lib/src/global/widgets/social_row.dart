@@ -51,7 +51,8 @@ class SocialRow extends StatelessWidget {
                           (element) =>
                               (element["name"] as String).contains("whatsapp"));
                       final Uri _url = Uri.parse(u['link']);
-                      if (!await launchUrl(_url)) {
+                      if (!await launchUrl(_url,
+                          mode: LaunchMode.externalApplication)) {
                         throw Exception('Could not launch $_url');
                       }
                     },
@@ -94,7 +95,8 @@ class SocialRow extends StatelessWidget {
                           (element) =>
                               (element["name"] as String).contains("facebook"));
                       final Uri _url = Uri.parse(u['link']);
-                      if (!await launchUrl(_url)) {
+                      if (!await launchUrl(_url,
+                          mode: LaunchMode.externalApplication)) {
                         throw Exception('Could not launch $_url');
                       }
                     },
@@ -115,7 +117,8 @@ class SocialRow extends StatelessWidget {
                           (element) => (element["name"] as String)
                               .contains("youtube")) as Map<String, dynamic>;
                       final Uri _url = Uri.parse(u['link']);
-                      if (!await launchUrl(_url)) {
+                      if (!await launchUrl(_url,
+                          mode: LaunchMode.externalApplication)) {
                         throw Exception('Could not launch $_url');
                       }
                     },

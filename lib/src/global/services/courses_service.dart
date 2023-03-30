@@ -8,6 +8,7 @@ import 'package:rs/src/global/models/courses/courses_responce.dart';
 import 'package:rs/src/global/models/courses/lesson.dart';
 import 'package:rs/src/global/models/courses/lesson_quiz_details.dart';
 import 'package:rs/src/global/models/courses/lesson_quiz_details_res.dart';
+import 'package:rs/src/global/models/courses/quiz_result.dart';
 import 'package:rs/src/global/models/courses/quiz_test_res.dart';
 import 'package:rs/src/global/models/courses/submit_ans.dart';
 
@@ -106,9 +107,10 @@ class CoursesService {
     }
   }
 
-  Future<CoursesResponce> buyCourse(String token, dynamic id) async {
+  Future<CoursesResponce> buyCourse(
+      String token, dynamic id, String code) async {
     try {
-      var data = await httpCall.get(ApiendPoints.buyCourse(id),
+      var data = await httpCall.post(ApiendPoints.buyCourse(id, code),
           options: Options(
               headers: {HttpHeaders.authorizationHeader: "Bearer $token"}));
       print(data.statusCode);
@@ -124,7 +126,31 @@ class CoursesService {
       print(e.message);
       if (e.response != null) print(e.response!.data);
       if (e.type == DioErrorType.other) {
-        return CoursesResponce.empty("Please Check the Internet Connection");
+        return CoursesResponce.empty("Invalid Coupon");
+      }
+      return CoursesResponce.empty(
+        e.message,
+      );
+    }
+  }
+
+  Future<CoursesResponce> checkEnroll(String token, dynamic id) async {
+    try {
+      var data = await httpCall.get(ApiendPoints.checkEnroll(id),
+          options: Options(
+              headers: {HttpHeaders.authorizationHeader: "Bearer $token"}));
+      print(data.statusCode);
+      if (data.statusCode == 200) {
+        print((data.data as Map).keys.toList().join(","));
+
+        return CoursesResponce.fromJson(data.data);
+      }
+      return CoursesResponce.empty(data.statusMessage ?? "");
+    } on DioError catch (e) {
+      print(e.message);
+      if (e.response != null) print(e.response!.data);
+      if (e.type == DioErrorType.other) {
+        return CoursesResponce.empty("not enrolled");
       }
       return CoursesResponce.empty(
         e.message,
@@ -170,7 +196,7 @@ class CoursesService {
               headers: {HttpHeaders.authorizationHeader: "Bearer $token"}));
       print(data.statusCode);
       if (data.statusCode == 200) {
-        print((data.data as Map).keys.toList().join(","));
+        print(data.data);
         if (data.data["data"] != null) {
           return QuizTestResponse.fromJson(data.data);
         }
@@ -260,7 +286,8 @@ class CoursesService {
     }
   }
 
-  Future<void> quizResult(String token, int c_id, int q_id) async {
+  Future<QuizResult> quizResult(
+      String token, int c_id, int q_id, int result) async {
     try {
       var data = await httpCall.post(ApiendPoints.getQuizResult(c_id, q_id),
           options: Options(
@@ -269,16 +296,16 @@ class CoursesService {
       if (data.statusCode == 200) {
         print("data:${data.data}");
 
-        return;
+        return QuizResult.fromJson(data.data['data'], result);
       }
-      return;
+      return QuizResult.fromJson(data.data, result);
     } on DioError catch (e) {
       print(e.message);
       if (e.response != null) print(e.response!.data);
       if (e.type == DioErrorType.other) {
-        return;
+        return QuizResult.empty();
       }
-      return;
+      return QuizResult.empty();
     }
   }
 }

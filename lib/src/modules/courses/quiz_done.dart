@@ -5,16 +5,20 @@ import 'package:rs/src/global/controllers/courses.dart';
 import 'package:rs/src/global/controllers/quiz.dart';
 import 'package:rs/src/global/models/courses/courseDetails.dart';
 import 'package:rs/src/global/models/courses/quiz.dart';
+import 'package:rs/src/global/models/courses/quiz_result.dart';
 import 'package:rs/src/global/models/courses/quiz_test_res.dart';
 import 'package:rs/src/global/utils/colors.dart';
 import 'package:rs/src/global/widgets/app_bar.dart';
 import 'package:rs/src/global/widgets/background.dart';
+import 'package:rs/src/modules/courses/ans_sheet.dart';
 import 'package:rs/src/modules/courses/quiz_assignment.dart';
 import 'package:rs/src/modules/home/home_screen.dart';
 import 'package:rs/src/modules/login/login_view.dart';
 
 class QuizDoneScreen extends GetView<QuizController> {
-  const QuizDoneScreen({super.key});
+  final QuizResult result;
+
+  const QuizDoneScreen({super.key, required this.result});
 
   @override
   QuizController get controller => Get.put(QuizController());
@@ -36,7 +40,7 @@ class QuizDoneScreen extends GetView<QuizController> {
                 Center(
                   child: SizedBox(
                     width: 300,
-                    height: 150,
+                    height: 250,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(26),
                         child: Container(
@@ -47,6 +51,12 @@ class QuizDoneScreen extends GetView<QuizController> {
                               children: [
                                 Text(
                                   "Done".tr,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Text(
+                                  "your result is ${result.result}/100",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700),
@@ -70,6 +80,31 @@ class QuizDoneScreen extends GetView<QuizController> {
                                       },
                                       child: Text(
                                         "Back to Home".tr,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      )),
+                                ),
+                                Spacer(),
+                                SizedBox(
+                                  width: 160,
+                                  child: TextButton(
+                                      style: ButtonStyle(
+                                          shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(14.0),
+                                          )),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  const Color(0xff427CFC))),
+                                      onPressed: () async {
+                                        Get.to(AnsSeet(
+                                          result: result,
+                                        ));
+                                      },
+                                      child: Text(
+                                        "Answers Sheet".tr,
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 12),
                                       )),

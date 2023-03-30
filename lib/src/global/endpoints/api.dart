@@ -11,15 +11,16 @@ class ApiendPoints {
   }
 
   static String signup(String name, String email, String password) {
-    return '${baseApi}signup?name=$name&email=$email&password=$password';
+    print(email);
+    return '${baseApi}signup?name=$name&email=$email&password=$password&password_confirmation=$password';
   }
 
   static String getCourseDetails(dynamic id) {
     return "${baseApi}get-course-details/${id}";
   }
 
-  static String buyCourse(dynamic id) {
-    return "${baseApi}buy-now/${id}";
+  static String buyCourse(dynamic id, String code) {
+    return "${baseApi}buy-now?id=$id&code=$code";
   }
 
   static String getQuizDetails(dynamic id) {
@@ -31,7 +32,7 @@ class ApiendPoints {
   }
 
   static String getQuizResult(dynamic course, quiz) {
-    return "${baseApi}quiz-result/${course}/${quiz}";
+    return "${baseApi}quiz-result-preview/${quiz}";
   }
 
   static String getSubmitAnswer() {
@@ -44,6 +45,10 @@ class ApiendPoints {
 
   static String lessonComplete(String course_id, String lesson_id) {
     return '${baseApi}lesson-complete?course_id=$course_id&lesson_id=$lesson_id';
+  }
+
+  static String checkEnroll(dynamic id) {
+    return "${baseApi}check-enroll/${id}";
   }
 
   static String popularCourses = "${baseApi}get-popular-courses";

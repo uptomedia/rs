@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:rs/src/global/controllers/auth.dart';
+import 'package:rs/src/global/models/courses/ans.dart';
 import 'package:rs/src/global/models/courses/courseDetails.dart';
 
 import 'package:rs/src/global/models/courses/lesson_quiz_details.dart';
 import 'package:rs/src/global/models/courses/lesson_quiz_details_res.dart';
+import 'package:rs/src/global/models/courses/quiz_result.dart';
 import 'package:rs/src/global/models/courses/quiz_test.dart';
 import 'package:rs/src/global/models/courses/quiz_test_res.dart';
 import 'package:rs/src/global/models/courses/submit_ans.dart';
@@ -25,7 +27,8 @@ class QuizController extends GetxController {
   bool downloading = false;
   Timer? timer;
   String progress = '50';
-  List<int> answers = [];
+  Answer answer = Answer(id: -1, status: 1, title: "title");
+  int result = 0;
 
   AuthController auth = Get.find<AuthController>();
   void startTimer() {
@@ -75,7 +78,11 @@ class QuizController extends GetxController {
 
   Future<void> submitAns(SubmitAns ans) async {
     await servise.submitAns(auth.token!, ans);
-    answers = [];
+    if (answer.status == 1) {
+      result += lessonQuizDetails!.assign[assignmentIndex].question_bank.marks;
+    }
+    print("result:$result");
+    answer = Answer(id: -1, status: 1, title: "title");
     if (assignmentIndex < lessonQuizDetails!.assign.length - 1) {
       timer!.cancel();
       assignmentIndex++;
@@ -84,9 +91,11 @@ class QuizController extends GetxController {
       startTimer();
     } else {
       await finalSubmit();
-      await servise.quizResult(
-          auth.token!, lessonQuizDetails!.course_id, lessonQuizDetails!.id);
-      Get.offAll(QuizDoneScreen());
+      QuizResult r = await servise.quizResult(auth.token!,
+          lessonQuizDetails!.course_id, lessonQuizDetails!.id, result);
+      Get.offAll(QuizDoneScreen(
+        result: r,
+      ));
     }
     update();
     return;

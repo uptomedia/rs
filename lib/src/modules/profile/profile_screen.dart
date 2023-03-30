@@ -123,6 +123,9 @@ class ProfileScreen extends GetView {
                           ),
                         );
                       }
+                      if (snapshot.hasError) {
+                        print(snapshot.error);
+                      }
                       return const Center(child: CircularProgressIndicator());
                     },
                   )),

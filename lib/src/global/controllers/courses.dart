@@ -113,7 +113,11 @@ class CourseController extends GetxController {
   Future<String> getFilePath(uniqueFileName) async {
     String path = '';
 
-    path = '/storage/emulated/0/Download/$uniqueFileName.pdf';
+    path = Platform.isAndroid
+        ? '/storage/emulated/0/Download/$uniqueFileName.pdf'
+        : await getApplicationSupportDirectory().then((value) {
+            return value.path;
+          });
 
     return path;
   }
@@ -149,8 +153,18 @@ class CourseController extends GetxController {
     return responce;
   }
 
-  Future<CoursesResponce> buyCourse(dynamic id) async {
-    CoursesResponce responce = await servise.buyCourse(auth.token!, id);
+  Future<CoursesResponce> buyCourse(dynamic id, String code) async {
+    CoursesResponce responce = await servise.buyCourse(auth.token!, id, code);
+    print(responce.success);
+    if (responce.success) return responce;
+    print("vvvvvvvvv${responce.message}");
+    Get.snackbar("Error", responce.message);
+    return responce;
+  }
+
+  Future<CoursesResponce> checkEnroll(dynamic id) async {
+    CoursesResponce responce = await servise.checkEnroll(auth.token!, id);
+    print(responce.success);
     if (responce.success) return responce;
     Get.snackbar("Error", responce.message);
     return responce;
