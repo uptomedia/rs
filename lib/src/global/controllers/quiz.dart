@@ -91,8 +91,10 @@ class QuizController extends GetxController {
       startTimer();
     } else {
       await finalSubmit();
+      print("quizz ${lessonQuizDetails!.id}");
+      print("courssss ${lessonQuizDetails!.course_id}");
       QuizResult r = await servise.quizResult(auth.token!,
-          lessonQuizDetails!.course_id, lessonQuizDetails!.id, result);
+          lessonQuizDetails!.course_id, currentQuizTest!.id, result);
       Get.offAll(QuizDoneScreen(
         result: r,
       ));

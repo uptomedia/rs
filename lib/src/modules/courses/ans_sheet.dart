@@ -45,13 +45,16 @@ class AnsSeet extends StatelessWidget {
                                       children: [
                                         Row(
                                           children: [
-                                            Text(
-                                              e.qus,
-                                              style: const TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold),
+                                            Expanded(
+                                              child: Text(
+                                                e.qus,
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
-                                            const Spacer(),
+                                            // const Spacer(),
                                             // Text((!e.isWrong).toString())
                                           ],
                                         ),

@@ -32,6 +32,7 @@ class ApiendPoints {
   }
 
   static String getQuizResult(dynamic course, quiz) {
+    print("quzzzzz${quiz}");
     return "${baseApi}quiz-result-preview/${quiz}";
   }
 
