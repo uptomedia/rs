@@ -6,6 +6,8 @@
 	<string>YES</string>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<string>YES</string> -->
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-5236252671718127~1985640092</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>NSMicrophoneUsageDescription</key>

@@ -13,14 +13,14 @@ import 'lang.dart';
 import 'src/global/controllers/auth.dart';
 
 Future<void> secureScreen() async {
-  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   secureScreen();
   await Hive.initFlutter();
-  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   AppBinding().dependencies();
   AuthBinding().dependencies();
   CourseBinding().dependencies();
