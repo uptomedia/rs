@@ -2,22 +2,25 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class QuizResult {
-  int id, quiz_id, result, pass;
+  int id, quiz_id, result, maxResult, pass;
   String duration;
   List<QusRes> questions;
   QuizResult(
       {required this.id,
       required this.quiz_id,
       required this.result,
+      required this.maxResult,
       required this.pass,
       required this.duration,
       required this.questions});
 
-  factory QuizResult.fromJson(Map<String, dynamic> json, int result) {
+  factory QuizResult.fromJson(
+      Map<String, dynamic> json, int result, int maxRes) {
     return QuizResult(
         id: json["id"],
         quiz_id: json['quiz_id'],
         result: result,
+        maxResult: maxRes,
         pass: json['pass'],
         duration: json['duration'],
         questions: List<QusRes>.from(
@@ -31,6 +34,7 @@ class QuizResult {
         id: -1,
         quiz_id: -1,
         result: 0,
+        maxResult: 0,
         pass: 0,
         duration: 'duration',
         questions: []);

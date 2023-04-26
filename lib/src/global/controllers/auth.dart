@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:rs/src/global/models/otp/otp_req.dart';
 import 'package:rs/src/modules/home/home_screen.dart';
 import 'package:rs/src/modules/login/login_view.dart';
 
@@ -70,30 +71,6 @@ class AuthController extends GetxController {
       Get.offAll(HomeScreen());
     }
   }
-
-  // Future<void> otp(OtpReq req) async {
-  //   Get.bottomSheet(WillPopScope(
-  //     onWillPop: () async {
-  //       return false;
-  //     },
-  //     child: Column(
-  //       children: const [Text("Please Wait"), CircularProgressIndicator()],
-  //     ),
-  //   ));
-  //   LoginResponse response = await service.otp(req);
-  //   Get.back();
-  //   // print(response.message);
-  //   if (response.message != null) {
-  //     Get.snackbar("Error", response.message!);
-  //   } else {
-  //     user = response.user;
-  //     token = response.token;
-  //     tokenBox!.put("token", token);
-  //     print(token);
-  //     update();
-  //     // Get.offAll(HomeScreen());
-  //   }
-  // }
 
   Future<void> register(SignUpRequest req) async {
     Get.bottomSheet(WillPopScope(

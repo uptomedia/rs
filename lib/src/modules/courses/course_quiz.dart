@@ -59,9 +59,12 @@ class CourseQuiz extends StatelessWidget {
                                       itemCount: course.quiz.length,
                                       itemBuilder: (context, index) {
                                         return Center(
-                                            child: QuizCard(
-                                          quiz: course.quiz[index],
-                                          course: course,
+                                            child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: QuizCard(
+                                            quiz: course.quiz[index],
+                                            course: course,
+                                          ),
                                         ));
                                       },
                                     ),

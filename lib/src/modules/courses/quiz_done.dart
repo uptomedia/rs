@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:rs/src/global/controllers/courses.dart';
 import 'package:rs/src/global/controllers/quiz.dart';
-import 'package:rs/src/global/models/courses/courseDetails.dart';
-import 'package:rs/src/global/models/courses/quiz.dart';
 import 'package:rs/src/global/models/courses/quiz_result.dart';
-import 'package:rs/src/global/models/courses/quiz_test_res.dart';
 import 'package:rs/src/global/utils/colors.dart';
 import 'package:rs/src/global/widgets/app_bar.dart';
 import 'package:rs/src/global/widgets/background.dart';
 import 'package:rs/src/modules/courses/ans_sheet.dart';
-import 'package:rs/src/modules/courses/quiz_assignment.dart';
 import 'package:rs/src/modules/home/home_screen.dart';
-import 'package:rs/src/modules/login/login_view.dart';
 
 class QuizDoneScreen extends GetView<QuizController> {
   final QuizResult result;
@@ -51,13 +45,13 @@ class QuizDoneScreen extends GetView<QuizController> {
                               children: [
                                 Text(
                                   "Done".tr,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 Text(
-                                  "your result is ${result.result}/100",
-                                  style: TextStyle(
+                                  "your result is ${result.result}/${result.maxResult}",
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700),
                                 ),
@@ -80,11 +74,11 @@ class QuizDoneScreen extends GetView<QuizController> {
                                       },
                                       child: Text(
                                         "Back to Home".tr,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white, fontSize: 12),
                                       )),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 SizedBox(
                                   width: 160,
                                   child: TextButton(
@@ -105,7 +99,7 @@ class QuizDoneScreen extends GetView<QuizController> {
                                       },
                                       child: Text(
                                         "Answers Sheet".tr,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white, fontSize: 12),
                                       )),
                                 )

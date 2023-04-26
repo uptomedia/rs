@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 import 'package:get/get.dart';
@@ -12,29 +14,27 @@ import 'package:rs/src/global/models/courses/quiz_test.dart';
 import 'package:rs/src/global/models/courses/quiz_test_res.dart';
 import 'package:rs/src/global/models/courses/submit_ans.dart';
 import 'package:rs/src/global/services/courses_service.dart';
-import 'package:rs/src/modules/courses/course_quiz.dart';
-import 'package:rs/src/modules/courses/courses_screen.dart';
 import 'package:rs/src/modules/courses/quiz_done.dart';
-import 'package:rs/src/modules/home/home_screen.dart';
 
 class QuizController extends GetxController {
   CoursesService servise = CoursesService();
   QuizTest? currentQuizTest;
   LessonQuizDetails? lessonQuizDetails;
   int assignmentIndex = 0;
-  Duration assignDuration = Duration(seconds: 0);
-  Duration time = Duration(seconds: 0);
+  Duration assignDuration = const Duration(seconds: 0);
+  Duration time = const Duration(seconds: 0);
   bool downloading = false;
   Timer? timer;
   String progress = '50';
   Answer answer = Answer(id: -1, status: 1, title: "title");
   int result = 0;
+  int maxresult = 0;
 
   AuthController auth = Get.find<AuthController>();
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
+    const oneSec = Duration(seconds: 1);
     timer = Timer.periodic(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       (Timer timer) {
         print(time.inSeconds);
         time = timer.tick.seconds;
@@ -65,6 +65,9 @@ class QuizController extends GetxController {
       LessonQuizDetails quiz, CourseDetails course) async {
     lessonQuizDetails = quiz;
     update();
+    for (int i = 0; i < lessonQuizDetails!.assign.length; i++) {
+      maxresult += lessonQuizDetails!.assign[i].question_bank.marks;
+    }
     QuizTestResponse responce =
         await servise.startQuiz(auth.token!, quiz, course);
     if (responce.result) return responce;
@@ -94,7 +97,7 @@ class QuizController extends GetxController {
       print("quizz ${lessonQuizDetails!.id}");
       print("courssss ${lessonQuizDetails!.course_id}");
       QuizResult r = await servise.quizResult(auth.token!,
-          lessonQuizDetails!.course_id, currentQuizTest!.id, result);
+          lessonQuizDetails!.course_id, currentQuizTest!.id, result, maxresult);
       Get.offAll(QuizDoneScreen(
         result: r,
       ));

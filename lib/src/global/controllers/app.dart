@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:rs/src/global/controllers/auth.dart';
 import 'package:rs/src/global/exceptions/app_exceptions.dart';
 
 import '../endpoints/api.dart';
@@ -30,7 +31,7 @@ class AppController extends GetxController {
   }
 
   void init() async {
-    Map<Permission, PermissionStatus> statuses = await [
+    await [
       Permission.manageExternalStorage,
       Permission.storage,
     ].request();
@@ -49,7 +50,7 @@ class AppController extends GetxController {
   showLangDialog() {
     Get.dialog(AlertDialog(
       title: Text('Choose Your Language'.tr),
-      content: Container(
+      content: SizedBox(
         width: double.maxFinite,
         child: ListView.separated(
             shrinkWrap: true,

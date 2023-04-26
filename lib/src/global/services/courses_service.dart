@@ -287,7 +287,7 @@ class CoursesService {
   }
 
   Future<QuizResult> quizResult(
-      String token, int c_id, int q_id, int result) async {
+      String token, int c_id, int q_id, int result, int maxRes) async {
     try {
       var data = await httpCall.post(ApiendPoints.getQuizResult(c_id, q_id),
           options: Options(
@@ -296,9 +296,9 @@ class CoursesService {
       if (data.statusCode == 200) {
         print("data:${data.data}");
 
-        return QuizResult.fromJson(data.data['data'], result);
+        return QuizResult.fromJson(data.data['data'], result, maxRes);
       }
-      return QuizResult.fromJson(data.data, result);
+      return QuizResult.fromJson(data.data, result, maxRes);
     } on DioError catch (e) {
       print(e.message);
       if (e.response != null) print(e.response!.data);

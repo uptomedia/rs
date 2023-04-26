@@ -91,8 +91,8 @@ class SettingScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          final Uri _url =
-                              Uri.parse('https://lms.up2media.net/about-us');
+                          final Uri _url = Uri.parse(
+                              'https://programmingwithrs.com/about-us');
                           if (!await launchUrl(_url)) {
                             throw Exception('Could not launch $_url');
                           }
