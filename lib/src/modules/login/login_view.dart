@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:rs/src/global/common/loading.dart';
+import 'package:rs/src/global/controllers/app.dart';
 import 'package:rs/src/global/widgets/background.dart';
 import 'package:rs/src/global/widgets/logo.dart';
+import 'package:rs/src/modules/home/home_screen.dart';
 import 'package:rs/src/modules/signup/signup_view.dart';
 import '../../global/utils/colors.dart';
 import '../../global/utils/padding.dart';
@@ -12,6 +15,7 @@ class LoginScreen extends GetView {
   LoginScreen({super.key});
   @override
   final LoginController controller = Get.put(LoginController());
+  final AppController appcontroller = Get.find<AppController>();
   final LocalKey formKey = const ObjectKey("value");
 
   @override
@@ -108,8 +112,6 @@ class LoginScreen extends GetView {
                                 child: TextButton(
                                   onPressed: () {
                                     controller.sendLoginReq();
-                                    // Get.to(HomeScreen());
-                                    // Get.offAll(const HomeScreen());
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),

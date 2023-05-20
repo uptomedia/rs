@@ -15,6 +15,16 @@ class RegisterController extends GetxController {
 
   void sendLoginReq() async {
     if (GetUtils.isEmail(email.text) && password.text.length >= 8) {
+      Future.delayed(Duration.zero, () {
+        Get.bottomSheet(WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Column(
+            children: const [Text("Please Wait"), CircularProgressIndicator()],
+          ),
+        ));
+      });
       SignUpRequest req = SignUpRequest(
           email: email.text,
           password: password.text,
@@ -24,6 +34,7 @@ class RegisterController extends GetxController {
           birthday: birthday.text);
 
       await auth.register(req);
+      Get.back();
     }
   }
 

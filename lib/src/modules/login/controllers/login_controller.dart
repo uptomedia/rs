@@ -10,11 +10,23 @@ class LoginController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  void sendLoginReq() async {
+  Future<void> sendLoginReq() async {
     if (GetUtils.isEmail(email.text) && password.text.length >= 8) {
+      Future.delayed(Duration.zero, () {
+        Get.bottomSheet(WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Column(
+            children: const [Text("Please Wait"), CircularProgressIndicator()],
+          ),
+        ));
+      });
       LoginReq req = LoginReq(email: email.text, password: password.text);
-
       await auth.login(req);
+      Get.back();
+    } else {
+      print("errrrrrrrrrrrrrrrrrrrr");
     }
   }
 

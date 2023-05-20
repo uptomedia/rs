@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rs/src/global/common/loading.dart';
 import 'package:rs/src/global/exceptions/app_exceptions.dart';
 
 import '../endpoints/api.dart';
 
 class AppController extends GetxController {
+  LoadingState loadingState = LoadingState.done;
   Box? appBox;
   final List locale = [
     {'name': 'ENGLISH', 'locale': const Locale('en', '')},
@@ -44,6 +46,19 @@ class AppController extends GetxController {
         orElse: () => {'name': 'العربية', 'locale': const Locale('ar', '')},
       );
       updateLanguage(loc["locale"]);
+    }
+  }
+
+  showLoadingDialog(
+      {required Future<LoadingState> func,
+      required VoidCallback callback,
+      required VoidCallback failCallback}) async {
+    Get.to(LoadingUI());
+    LoadingState state = await func;
+    if (state == LoadingState.done) {
+      callback;
+    } else {
+      failCallback;
     }
   }
 

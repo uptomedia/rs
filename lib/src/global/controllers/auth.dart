@@ -43,23 +43,16 @@ class AuthController extends GetxController {
   }
 
   Future<void> login(LoginReq req) async {
-    Get.bottomSheet(WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Column(
-        children: const [Text("Please Wait"), CircularProgressIndicator()],
-      ),
-    ));
     LoginResponse response = await service.login(req);
-    Get.back();
+
     // print(response.message);
     if (response.message != null) {
-      if (response.status == 401) {
-        print(response.user.id);
-        // Get.to(OtpScreen(response.user));
-      }
+      // if (response.status == 401) {
+      //   print(response.user.id);
+      //   // Get.to(OtpScreen(response.user));
+      // }
       Get.snackbar("Error", response.message!);
+      update();
     } else {
       user = response.user;
       token = response.token;
@@ -73,17 +66,8 @@ class AuthController extends GetxController {
   }
 
   Future<void> register(SignUpRequest req) async {
-    Get.bottomSheet(WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Column(
-        children: const [Text("Please Wait"), CircularProgressIndicator()],
-      ),
-    ));
     LoginResponse response = await service.register(req);
-    Get.back();
-    // print(response.message);
+
     if (response.message != null) {
       if (response.status == 200) {
         Get.snackbar("Success",
@@ -113,7 +97,7 @@ class AuthController extends GetxController {
 
   Future<User> getUser() async {
     if (token == null) {
-      Get.to(LoginScreen());
+      // Get.offAll(LoginScreen());
       return User.empty();
     }
     User response = await service.getUser(token!);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -18,6 +17,7 @@ Future<void> secureScreen() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   secureScreen();
   await Hive.initFlutter();
   // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);

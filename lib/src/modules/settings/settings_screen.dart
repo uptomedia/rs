@@ -12,6 +12,7 @@ import 'package:rs/src/modules/profile/profile_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../global/utils/colors.dart';
+import '../login/login_view.dart';
 
 class SettingScreen extends StatelessWidget {
   SettingScreen({super.key});
@@ -126,7 +127,11 @@ class SettingScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(ProfileScreen());
+                          if (authController.token == null) {
+                            Get.to(LoginScreen());
+                          } else {
+                            Get.to(ProfileScreen());
+                          }
                         },
                         child: Container(
                           height: 85,

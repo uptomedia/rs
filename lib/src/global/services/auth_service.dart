@@ -30,10 +30,9 @@ class AuthService {
       }
       return LoginResponse.empty(data.statusMessage ?? "");
     } on DioError catch (e) {
-      print(e);
+      print(e.toString());
       if (e.response != null) print(e.response!.data);
       if (e.type == DioErrorType.other) {
-        print(e.type);
         return LoginResponse.empty("Please Check the Internet Connection");
       }
       return LoginResponse.empty(e.message,
